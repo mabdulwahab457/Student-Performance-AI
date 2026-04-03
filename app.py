@@ -9,34 +9,25 @@ import time
 st.set_page_config(page_title="Student Performance AI", layout="wide", initial_sidebar_state="expanded")
 
 # ==========================================
-# 2. ENTERPRISE MINIMALIST CSS (Sleek & Clean)
+# 2. ENTERPRISE MINIMALIST CSS
 # ==========================================
 st.markdown("""
     <style>
-    /* --- Main App Background & Text --- */
     .stApp {
-        background-color: #0f172a; /* Deep Slate */
+        background-color: #0f172a; 
         color: #e2e8f0;
         font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     }
-    
-    /* --- Typography --- */
     h1, h2, h3 {
         color: #f8fafc !important;
         font-weight: 600 !important;
         letter-spacing: -0.5px;
     }
-    
-    /* --- Sidebar Styling --- */
     [data-testid="stSidebar"] {
-        background-color: #020617 !important; /* Extra Dark Slate */
+        background-color: #020617 !important; 
         border-right: 1px solid #1e293b;
     }
-    
-    /* --- Navigation Radio Buttons --- */
-    div.row-widget.stRadio > div {
-        background-color: transparent;
-    }
+    div.row-widget.stRadio > div { background-color: transparent; }
     div.row-widget.stRadio > div > label {
         padding: 10px 15px;
         background-color: #0f172a;
@@ -51,10 +42,8 @@ st.markdown("""
         color: #ffffff;
         border-color: #334155;
     }
-    
-    /* --- Primary Action Buttons --- */
     div.stButton > button:first-child {
-        background-color: #4f46e5; /* Professional Indigo */
+        background-color: #4f46e5; 
         color: #ffffff !important;
         font-weight: 500;
         border-radius: 6px;
@@ -66,28 +55,23 @@ st.markdown("""
         background-color: #4338ca;
         border-color: #3730a3;
     }
-
-    /* --- Input Fields --- */
     div[data-baseweb="input"] > div, div[data-baseweb="select"] > div, div[data-baseweb="base-input"] {
         background-color: #1e293b !important;
         border: 1px solid #334155 !important;
         border-radius: 6px !important;
         color: #f8fafc !important;
     }
-    
-    /* --- Metric Cards (KPIs) --- */
     div[data-testid="metric-container"] {
         background-color: #0f172a;
         border: 1px solid #1e293b;
         border-radius: 8px;
         padding: 24px;
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
     }
     div[data-testid="metric-container"] label {
         color: #94a3b8 !important;
         font-size: 0.9rem !important;
         text-transform: uppercase;
-        letter-spacing: 0.5px;
         font-weight: 600;
     }
     div[data-testid="metric-container"] div[data-testid="stMetricValue"] {
@@ -95,21 +79,23 @@ st.markdown("""
         font-size: 2.2rem !important;
         font-weight: 700 !important;
     }
-    
-    /* --- Clean Header Line --- */
     hr {
         border-color: #1e293b;
-        margin-top: 1.5rem;
-        margin-bottom: 1.5rem;
+        margin-top: 1.5rem; margin-bottom: 1.5rem;
     }
     </style>
 """, unsafe_allow_html=True)
 
 # ==========================================
-# 3. SECURE LOGIN SYSTEM
+# 3. DYNAMIC & SECURE LOGIN SYSTEM
 # ==========================================
+# Initialize Session States
 if 'logged_in' not in st.session_state:
     st.session_state['logged_in'] = False
+
+# Create an internal dictionary to store users (Default admin account included)
+if 'user_database' not in st.session_state:
+    st.session_state['user_database'] = {'admin': 'admin'}
 
 if not st.session_state['logged_in']:
     st.markdown("<br><br><br>", unsafe_allow_html=True)
@@ -122,34 +108,38 @@ if not st.session_state['logged_in']:
         with st.form("login_form"):
             st.markdown("#### System Authentication")
             
-            # Updated Labels
             username = st.text_input("Username")
             password = st.text_input("Password", type="password")
             
-            # Updated Buttons
             btn_col1, btn_col2 = st.columns(2)
             with btn_col1:
                 submit_signin = st.form_submit_button("Sign In", use_container_width=True)
             with btn_col2:
                 submit_signup = st.form_submit_button("Sign Up", use_container_width=True)
             
-            # Logic for Sign In
+            # --- SIGN IN LOGIC ---
             if submit_signin:
-                if username == "admin" and password == "admin":
+                if username in st.session_state['user_database'] and st.session_state['user_database'][username] == password:
                     st.session_state['logged_in'] = True
                     st.rerun()
                 else:
                     st.error("Authentication Failed: Invalid Username or Password.")
             
-            # Logic for Sign Up (Placeholder)
+            # --- SIGN UP LOGIC ---
             if submit_signup:
-                st.info("The Sign Up feature is currently under development. Please Sign In with your existing credentials.")
+                if username == "" or password == "":
+                    st.warning("Please enter both a Username and a Password to create an account.")
+                elif username in st.session_state['user_database']:
+                    st.warning("This Username already exists. Please Sign In or choose a different one.")
+                else:
+                    # Add the new user to our session database
+                    st.session_state['user_database'][username] = password
+                    st.success(f"Account successfully created for '{username}'! You can now click Sign In.")
 
 # ==========================================
 # 4. ENTERPRISE DASHBOARD
 # ==========================================
 else:
-    # --- SLEEK SIDEBAR MENU ---
     with st.sidebar:
         st.markdown("""
             <div style='padding: 10px 0px 20px 0px;'>
@@ -269,7 +259,6 @@ else:
         st.write("Overview of system-wide academic performance and machine learning accuracy.")
         st.markdown("---")
         
-        # Sleek KPI Cards
         k1, k2, k3, k4 = st.columns(4)
         with k1: st.metric("Active Scholars", "1,245", "+34 This Month")
         with k2: st.metric("System Accuracy", "98.2%", "Optimal")
