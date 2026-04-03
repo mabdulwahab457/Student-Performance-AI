@@ -121,16 +121,29 @@ if not st.session_state['logged_in']:
     with col2:
         with st.form("login_form"):
             st.markdown("#### System Authentication")
-            username = st.text_input("Administrator ID")
-            password = st.text_input("Security Key", type="password")
-            submit = st.form_submit_button("Authenticate", use_container_width=True)
             
-            if submit:
+            # Updated Labels
+            username = st.text_input("Username")
+            password = st.text_input("Password", type="password")
+            
+            # Updated Buttons
+            btn_col1, btn_col2 = st.columns(2)
+            with btn_col1:
+                submit_signin = st.form_submit_button("Sign In", use_container_width=True)
+            with btn_col2:
+                submit_signup = st.form_submit_button("Sign Up", use_container_width=True)
+            
+            # Logic for Sign In
+            if submit_signin:
                 if username == "admin" and password == "admin":
                     st.session_state['logged_in'] = True
                     st.rerun()
                 else:
-                    st.error("Authentication Failed: Invalid Credentials.")
+                    st.error("Authentication Failed: Invalid Username or Password.")
+            
+            # Logic for Sign Up (Placeholder)
+            if submit_signup:
+                st.info("The Sign Up feature is currently under development. Please Sign In with your existing credentials.")
 
 # ==========================================
 # 4. ENTERPRISE DASHBOARD
