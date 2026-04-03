@@ -9,20 +9,24 @@ import time
 st.set_page_config(page_title="AI Predictor Pro", page_icon="🎓", layout="wide", initial_sidebar_state="expanded")
 
 # ==========================================
-# 2. FULLY CUSTOMIZED CSS & SLIDESHOW ANIMATION
+# 2. FULL 8K PREMIUM CSS & ANIMATIONS
 # ==========================================
 st.markdown("""
     <style>
-    /* Glowing Title */
-    .title-glow {
-        font-size: 3rem !important;
-        background: -webkit-linear-gradient(45deg, #FF416C, #FF4B2B);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        font-weight: 900;
-        margin-bottom: 0px;
+    /* --- 8K SIDEBAR STYLING --- */
+    [data-testid="stSidebar"] {
+        background: rgba(15, 12, 41, 0.95) !important;
+        border-right: 1px solid rgba(255, 255, 255, 0.05);
+        box-shadow: 5px 0 15px rgba(0,0,0,0.5);
     }
-    /* Dashboard KPI Cards Customization */
+    div.row-widget.stRadio > div {
+        background: rgba(255, 255, 255, 0.03);
+        border-radius: 12px;
+        padding: 15px;
+        border: 1px solid rgba(255,255,255,0.05);
+    }
+    
+    /* --- DASHBOARD KPI CARDS --- */
     div[data-testid="metric-container"] {
         background: linear-gradient(135deg, #1f1c2c 0%, #928DAB 100%);
         color: white;
@@ -42,7 +46,7 @@ st.markdown("""
         font-size: 2.5rem !important;
     }
 
-    /* --- SLIDESHOW CSS --- */
+    /* --- AUTO-SLIDING BANNER CSS --- */
     .slider-wrapper {
         width: 100%;
         overflow: hidden;
@@ -50,8 +54,6 @@ st.markdown("""
         box-shadow: 0 10px 30px rgba(0,0,0,0.4);
         margin-bottom: 25px;
         position: relative;
-        background: #0f0c29;
-        background: -webkit-linear-gradient(to right, #24243e, #302b63, #0f0c29);
         background: linear-gradient(to right, #24243e, #302b63, #0f0c29);
     }
     .slide-track {
@@ -102,7 +104,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # ==========================================
-# 3. LOAD DATA & AI MODEL
+# 3. LOAD DATA & AI MODEL SECURELY
 # ==========================================
 @st.cache_data
 def load_data():
@@ -123,23 +125,49 @@ df = load_data()
 model = load_model()
 
 # ==========================================
-# 4. CUSTOM SIDEBAR (TECH WITH WAHAB)
+# 4. 8K GLASSMORPHISM SIDEBAR (TECH WITH WAHAB)
 # ==========================================
 with st.sidebar:
-    st.image("https://cdn-icons-png.flaticon.com/512/8637/8637099.png", width=90)
-    st.markdown("## 🚀 **Tech With Wahab**")
-    st.caption("AI Performance Dashboard v3.0")
-    st.markdown("---")
-    app_mode = st.radio("🧭 **Main Menu**", ["📈 Live Dashboard", "🔮 AI Prediction Center", "👨‍💻 About Project"])
-    st.markdown("---")
-    st.success("🟢 AI Model: Active\n\n🟢 Database: Connected")
+    st.markdown("""
+        <div style='text-align: center; padding-top: 10px;'>
+            <img src="https://cdn-icons-png.flaticon.com/512/8637/8637099.png" width="110" style="filter: drop-shadow(0px 0px 15px rgba(0, 201, 255, 0.6)); margin-bottom: 15px; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+            <h2 style='background: -webkit-linear-gradient(45deg, #00C9FF, #92FE9D); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin: 0; font-size: 1.8rem; font-weight: 900; letter-spacing: 1px;'>Tech With Wahab</h2>
+            <p style='color: #8B9BB4; font-size: 0.85rem; margin-top: 5px; font-weight: 600; letter-spacing: 0.5px;'>AI PERFORMANCE DASHBOARD v3.0</p>
+        </div>
+        <hr style='border: none; height: 1px; background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,0.2), rgba(255,255,255,0)); margin: 20px 0;'>
+    """, unsafe_allow_html=True)
+    
+    st.markdown("<h4 style='color: #E2E8F0; font-size: 1rem; margin-bottom: -10px;'>🧭 Main Navigation</h4>", unsafe_allow_html=True)
+    
+    app_mode = st.radio("", ["📈 Live Dashboard", "🔮 AI Prediction Center", "👨‍💻 About Project"], label_visibility="collapsed")
+    
+    st.markdown("<hr style='border: none; height: 1px; background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,0.2), rgba(255,255,255,0)); margin: 25px 0 15px 0;'>", unsafe_allow_html=True)
+    
+    st.markdown("""
+        <div style="background: rgba(16, 185, 129, 0.05); border: 1px solid rgba(16, 185, 129, 0.2); padding: 18px; border-radius: 12px; box-shadow: inset 0 0 20px rgba(16,185,129,0.05), 0 4px 15px rgba(0,0,0,0.2); backdrop-filter: blur(10px);">
+            <div style="display: flex; align-items: center; margin-bottom: 12px;">
+                <div style="width: 12px; height: 12px; background: #10B981; border-radius: 50%; box-shadow: 0 0 10px #10B981, 0 0 20px #10B981; margin-right: 12px; animation: pulse 2s infinite;"></div>
+                <span style="color: #F8FAFC; font-weight: 600; font-size: 0.95rem;">AI Model: Active</span>
+            </div>
+            <div style="display: flex; align-items: center;">
+                <div style="width: 12px; height: 12px; background: #10B981; border-radius: 50%; box-shadow: 0 0 10px #10B981, 0 0 20px #10B981; margin-right: 12px;"></div>
+                <span style="color: #F8FAFC; font-weight: 600; font-size: 0.95rem;">Database: Connected</span>
+            </div>
+        </div>
+        <style>
+        @keyframes pulse {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+        }
+        </style>
+    """, unsafe_allow_html=True)
 
 # ==========================================
-# 5. MODULE 1: FULLY CUSTOMIZED DASHBOARD (WITH SLIDESHOW)
+# 5. MODULE 1: LIVE DASHBOARD WITH SLIDESHOW
 # ==========================================
 if app_mode == "📈 Live Dashboard":
 
-    # --- AUTO-SLIDING PROFESSIONAL BANNER ---
     st.markdown("""
     <div class="slider-wrapper">
         <div class="slide-track">
@@ -172,7 +200,6 @@ if app_mode == "📈 Live Dashboard":
     st.markdown("---")
 
     if df is not None:
-        # --- TOP KPI CARDS ---
         st.subheader("📊 Key Performance Indicators (KPIs)")
         kpi1, kpi2, kpi3, kpi4 = st.columns(4)
 
@@ -189,13 +216,12 @@ if app_mode == "📈 Live Dashboard":
 
         st.markdown("<br>", unsafe_allow_html=True)
 
-        # --- MIDDLE SECTION: CHARTS & INSIGHTS ---
         col_chart, col_insights = st.columns([2, 1])
 
         with col_chart:
             st.markdown("### 📈 Grade Distribution Trend")
             grade_counts = df['G3'].value_counts().sort_index()
-            st.area_chart(grade_counts, color="#FF4B2B")
+            st.area_chart(grade_counts, color="#00C9FF")
 
         with col_insights:
             st.markdown("### 💡 AI Smart Insights")
@@ -250,7 +276,7 @@ elif app_mode == "🔮 AI Prediction Center":
                 csv = report_df.to_csv(index=False).encode('utf-8')
                 st.download_button("📥 Download Official Report", data=csv, file_name='AI_Report.csv', mime='text/csv')
         else:
-            st.error("Model not loaded!")
+            st.error("Model not loaded! Please run train.py first.")
 
 # ==========================================
 # 7. MODULE 3: ABOUT PROJECT
