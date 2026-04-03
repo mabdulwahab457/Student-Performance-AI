@@ -6,7 +6,7 @@ import time
 # ==========================================
 # 1. PAGE CONFIGURATION
 # ==========================================
-st.set_page_config(page_title="EduMetrics OS", layout="wide", initial_sidebar_state="expanded")
+st.set_page_config(page_title="Student Performance AI", layout="wide", initial_sidebar_state="expanded")
 
 # ==========================================
 # 2. ENTERPRISE MINIMALIST CSS (Sleek & Clean)
@@ -113,7 +113,7 @@ if 'logged_in' not in st.session_state:
 
 if not st.session_state['logged_in']:
     st.markdown("<br><br><br>", unsafe_allow_html=True)
-    st.markdown("<h1 style='text-align: center;'>EduMetrics OS</h1>", unsafe_allow_html=True)
+    st.markdown("<h1 style='text-align: center;'>Student Performance AI</h1>", unsafe_allow_html=True)
     st.markdown("<p style='text-align: center; color: #94a3b8;'>Enterprise Performance Analytics</p>", unsafe_allow_html=True)
     st.markdown("---")
     
@@ -140,7 +140,7 @@ else:
     with st.sidebar:
         st.markdown("""
             <div style='padding: 10px 0px 20px 0px;'>
-                <h2 style='color: #f8fafc; margin: 0; font-size: 1.5rem; letter-spacing: -0.5px;'>EduMetrics OS</h2>
+                <h2 style='color: #f8fafc; margin: 0; font-size: 1.5rem; letter-spacing: -0.5px;'>Student Performance AI</h2>
                 <p style='color: #4f46e5; font-size: 0.8rem; font-weight: 600; margin-top: 2px;'>VERSION 5.1 | SECURE CONNECTION</p>
             </div>
         """, unsafe_allow_html=True)
@@ -272,7 +272,6 @@ else:
                 "Departments": ["Computer Science", "Mathematics", "Physics", "Chemistry"],
                 "Scores": [88, 92, 75, 82]
             }).set_index("Departments")
-            # Using a refined, muted blue for the chart
             st.bar_chart(chart_data, color="#4f46e5")
         with c2:
             st.markdown("#### AI Automated Insights")
