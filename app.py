@@ -125,7 +125,7 @@ df = load_data()
 model = load_model()
 
 # ==========================================
-# 4. 8K GLASSMORPHISM SIDEBAR (TECH WITH WAHAB)
+# 4. 8K GLASSMORPHISM SIDEBAR
 # ==========================================
 with st.sidebar:
     st.markdown("""
@@ -147,7 +147,7 @@ with st.sidebar:
         <div style="background: rgba(16, 185, 129, 0.05); border: 1px solid rgba(16, 185, 129, 0.2); padding: 18px; border-radius: 12px; box-shadow: inset 0 0 20px rgba(16,185,129,0.05), 0 4px 15px rgba(0,0,0,0.2); backdrop-filter: blur(10px);">
             <div style="display: flex; align-items: center; margin-bottom: 12px;">
                 <div style="width: 12px; height: 12px; background: #10B981; border-radius: 50%; box-shadow: 0 0 10px #10B981, 0 0 20px #10B981; margin-right: 12px; animation: pulse 2s infinite;"></div>
-                <span style="color: #F8FAFC; font-weight: 600; font-size: 0.95rem;">AI Model: Active</span>
+                <span style="color: #F8FAFC; font-weight: 600; font-size: 0.95rem;">AI Model: Active (Regression)</span>
             </div>
             <div style="display: flex; align-items: center;">
                 <div style="width: 12px; height: 12px; background: #10B981; border-radius: 50%; box-shadow: 0 0 10px #10B981, 0 0 20px #10B981; margin-right: 12px;"></div>
@@ -164,7 +164,7 @@ with st.sidebar:
     """, unsafe_allow_html=True)
 
 # ==========================================
-# 5. MODULE 1: LIVE DASHBOARD WITH SLIDESHOW
+# 5. MODULE 1: LIVE DASHBOARD
 # ==========================================
 if app_mode == "📈 Live Dashboard":
 
@@ -182,7 +182,7 @@ if app_mode == "📈 Live Dashboard":
                 <img class="slide-img" src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop" />
                 <div class="slide-content">
                     <h2>Machine Learning Core</h2>
-                    <p>Powered by Random Forest predictive capabilities.</p>
+                    <p>Powered by Random Forest Regressor capabilities.</p>
                 </div>
             </div>
             <div class="slide-item">
@@ -232,11 +232,11 @@ if app_mode == "📈 Live Dashboard":
         st.error("Data file (student_data.csv) not found! Cannot display dashboard.")
 
 # ==========================================
-# 6. MODULE 2: AI PREDICTION CENTER
+# 6. MODULE 2: AI PREDICTION CENTER (REAL-LIFE REGRESSION)
 # ==========================================
 elif app_mode == "🔮 AI Prediction Center":
-    st.title("🧠 AI Prediction Engine")
-    st.write("Enter student data to generate a real-time forecast and official report.")
+    st.title("🧠 AI Prediction Engine (Real-Life)")
+    st.write("Enter student data to generate a real-time decimal forecast and official report.")
     st.markdown("---")
 
     with st.container():
@@ -252,22 +252,28 @@ elif app_mode == "🔮 AI Prediction Center":
 
     if st.button("🚀 Analyze Student Profile", use_container_width=True):
         if model:
-            with st.spinner("AI is calculating probabilities..."):
+            with st.spinner("AI is calculating real-life probabilities..."):
                 time.sleep(1.2)
+                
                 input_data = pd.DataFrame({'studytime': [studytime], 'absences': [absences], 'G1': [G1], 'G2': [G2]})
-                final_score = model.predict(input_data)[0]
-                confidence = min(98, 85 + (10 - abs(G1 - G2)))
+                
+                # --- NEW: Rounding the decimal output to 1 place ---
+                raw_prediction = model.predict(input_data)[0]
+                final_score = round(float(raw_prediction), 1) 
+                
+                confidence = min(98.5, 85.0 + (10.0 - abs(G1 - G2)))
+                confidence = round(confidence, 1)
 
                 st.markdown("---")
                 st.subheader("🎯 Final Prediction")
 
                 res1, res2 = st.columns(2)
                 with res1:
-                    if final_score >= 10:
-                        st.success(f"### Predicted Grade: {final_score} / 20 (PASS) 🎉")
+                    if final_score >= 10.0:
+                        st.success(f"### Predicted Grade: {final_score} / 20.0 (PASS) 🎉")
                         st.balloons()
                     else:
-                        st.error(f"### Predicted Grade: {final_score} / 20 (FAIL) ⚠️")
+                        st.error(f"### Predicted Grade: {final_score} / 20.0 (FAIL) ⚠️")
                 with res2:
                     st.info(f"### Model Confidence: {confidence}%")
 
@@ -276,7 +282,7 @@ elif app_mode == "🔮 AI Prediction Center":
                 csv = report_df.to_csv(index=False).encode('utf-8')
                 st.download_button("📥 Download Official Report", data=csv, file_name='AI_Report.csv', mime='text/csv')
         else:
-            st.error("Model not loaded! Please run train.py first.")
+            st.error("Model not loaded! Please make sure you uploaded the new 'model.pkl' to GitHub.")
 
 # ==========================================
 # 7. MODULE 3: ABOUT PROJECT
@@ -288,4 +294,4 @@ elif app_mode == "👨‍💻 About Project":
     st.write("**Degree:** BS Computer Science (4th Semester)")
     st.write("**University:** COMSATS Sahiwal")
     st.write("**Project:** Student Performance AI Prediction Dashboard")
-    st.write("Built with ❤️ using Python & Streamlit.")
+    st.write("Built with ❤️ using Python, Scikit-Learn & Streamlit.")
